@@ -7,7 +7,9 @@
 #include "VAO.h"
 #include "EBO.h"
 #include "shaderClass.h"
+#include "Origami.h"
 
+using namespace std;
 
 int main() {
 
@@ -31,7 +33,7 @@ int main() {
 
 	glViewport(0, 0, 800, 800);
 
-
+	
 	
 
 
@@ -46,9 +48,7 @@ int main() {
 	};
 
 	GLuint indices[] = {
-		0, 3, 5,
-		3, 2, 4,
-		5, 4, 1
+		0, 1, 4
 	};
 
 	Shader shaderProgram("default.vert", "default.frag");
@@ -56,8 +56,19 @@ int main() {
 	VAO VAO1;
 	VAO1.Bind();
 	
-	VBO VBO1(vertices, sizeof(vertices));
-	EBO EBO1(indices, sizeof(indices));
+	//VBO VBO1(vertices, sizeof(vertices));
+	//EBO EBO1(indices, sizeof(indices));
+
+	Paper p;
+	p.makePoints();
+	p.makeTriangles();
+	vector<GLfloat> v = p.getMap();
+
+	VBO VBO1(v.data(), v.size() * sizeof(GLfloat));
+	EBO EBO1(p.indicesMap.data(), p.indicesMap.size() * sizeof(GLuint));
+	for (GLfloat f : v) {
+		printf("%f\n", f);
+	}
 
 	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
 	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 6 * sizeof(float),(void*)(3 * sizeof(float)));
