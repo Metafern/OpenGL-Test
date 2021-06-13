@@ -66,9 +66,6 @@ int main() {
 
 	VBO VBO1(v.data(), v.size() * sizeof(GLfloat));
 	EBO EBO1(p.indicesMap.data(), p.indicesMap.size() * sizeof(GLuint));
-	for (GLfloat f : v) {
-		printf("%f\n", f);
-	}
 
 	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
 	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 6 * sizeof(float),(void*)(3 * sizeof(float)));
@@ -90,7 +87,7 @@ int main() {
 		VAO1.Bind();
 
 		
-		glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, p.indicesMap.size(), GL_UNSIGNED_INT, 0);
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
