@@ -71,9 +71,9 @@ std::vector<GLfloat> Paper::getMap() {
 		vertices.push_back(p3);
 
 		//color 0.8f, 0.3f, 0.02f
-		vertices.push_back(0.8f);
-		vertices.push_back(0.3f);
-		vertices.push_back(0.02f);
+		vertices.push_back(0.8f + 0.5f * p1);
+		vertices.push_back(0.3f + 0.5f * p2);
+		vertices.push_back(0.02f + 0.5f * p3);
 	}
 
 	return vertices;
