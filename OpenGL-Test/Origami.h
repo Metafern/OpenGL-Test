@@ -6,8 +6,7 @@ class Paper {
 
 public:
 	Paper();
-	
-	int divisions;
+
 	int rows;
 	int columns;
 	int total;

@@ -3,9 +3,9 @@
 using namespace std;
 
 Paper::Paper() {
-	divisions = 4;
-	rows = 4;
-	columns = 4;
+
+	rows = 3;
+	columns = 3;
 	total = (2 * columns + 1) * (rows + 1) / 2;
 }
 
@@ -25,7 +25,7 @@ void Paper::makePoints() {
 
 		
 		if (x >= rows - r) {
-			x = x + 0.5 - divisions;
+			x = x + 0.5 - rows;
 			y += sqrt(3) / 2;
 
 			r = (r + 1) % 2;
@@ -45,7 +45,7 @@ void Paper::makeTriangles() {
 	for (int r = 0; r < rows; r++) {
 		for (int i = 0; i < rows - r % 2; i++) {
 			p2 = p1 + 1;
-			p3 = p2 + divisions;
+			p3 = p2 + rows;
 
 			indicesMap.push_back(p1);
 			indicesMap.push_back(p2);
@@ -62,7 +62,7 @@ void Paper::makeTriangles() {
 	for (int r = 0; r < rows; r++) {
 		for (int i = 0; i < rows - (r+1) % 2; i++) {
 			p2 = p1 - 1;
-			p3 = p2 - divisions;
+			p3 = p2 - rows;
 
 			indicesMap.push_back(p1);
 			indicesMap.push_back(p2);
@@ -81,8 +81,8 @@ std::vector<GLfloat> Paper::getMap() {
 
 	for (int i = 0; i < vertexMap.size(); i+=3) {
 
-		float p1 = 1.0f / divisions * vertexMap[i] - 0.5;
-		float p2 = 1.0f / divisions * vertexMap[i + 1] - 0.5;
+		float p1 = 1.0f / rows * vertexMap[i] - 0.5;
+		float p2 = 1.0f / rows * vertexMap[i + 1] - 0.5;
 		float p3 = 0;
 
 		//points
