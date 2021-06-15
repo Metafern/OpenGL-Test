@@ -4,7 +4,9 @@ using namespace std;
 
 Paper::Paper() {
 	divisions = 4;
-
+	rows = 4;
+	columns = 4;
+	total = (2 * columns + 1) * (rows + 1) / 2;
 }
 
 void Paper::makePoints() {
@@ -13,7 +15,7 @@ void Paper::makePoints() {
 	float y = 0;
 	float z = 0;
 
-	int total = divisions * divisions + divisions - 1;
+	
 	int r = 0;
 
 	for (int i = 0; i < total; i++) {
@@ -22,7 +24,7 @@ void Paper::makePoints() {
 		vertexMap.push_back(z);
 
 		
-		if (x >= divisions - r) {
+		if (x >= rows - r) {
 			x = x + 0.5 - divisions;
 			y += sqrt(3) / 2;
 
@@ -35,13 +37,13 @@ void Paper::makePoints() {
 }
 
 void Paper::makeTriangles() {
+
 	int p1 = 0;
-	int p2;
-	int p3;
-	int rows = 3;
+	int p2 = 0;
+	int p3 = 0;
 
 	for (int r = 0; r < rows; r++) {
-		for (int i = 0; i < divisions - r % 2; i++) {
+		for (int i = 0; i < rows - r % 2; i++) {
 			p2 = p1 + 1;
 			p3 = p2 + divisions;
 
@@ -54,6 +56,24 @@ void Paper::makeTriangles() {
 		}
 		p1++;
 	}
+
+	p1 = total - 1;
+	printf("t %d\n", total);
+	for (int r = 0; r < rows; r++) {
+		for (int i = 0; i < rows - (r+1) % 2; i++) {
+			p2 = p1 - 1;
+			p3 = p2 - divisions;
+
+			indicesMap.push_back(p1);
+			indicesMap.push_back(p2);
+			indicesMap.push_back(p3);
+			printf("%d %d %d\n", p1, p2, p3);
+
+			p1--;
+		}
+		p1--;
+	}
+
 }
 
 std::vector<GLfloat> Paper::getMap() {
@@ -75,6 +95,5 @@ std::vector<GLfloat> Paper::getMap() {
 		vertices.push_back(0.3f + 0.5f * p2);
 		vertices.push_back(0.02f + 0.5f * p3);
 	}
-
 	return vertices;
 }

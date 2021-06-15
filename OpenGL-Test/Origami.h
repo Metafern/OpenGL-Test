@@ -8,6 +8,10 @@ public:
 	Paper();
 	
 	int divisions;
+	int rows;
+	int columns;
+	int total;
+
 	std::vector<GLfloat> vertexMap;
 	std::vector<GLuint> indicesMap;
 	void makePoints();
