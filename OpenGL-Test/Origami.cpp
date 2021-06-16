@@ -4,8 +4,8 @@ using namespace std;
 
 Paper::Paper() {
 
-	rows = 3;
-	columns = 3;
+	rows = 64;
+	columns = rows;
 	total = (2 * columns + 1) * (rows + 1) / 2;
 }
 
@@ -91,7 +91,7 @@ std::vector<GLfloat> Paper::getMap() {
 		vertices.push_back(p3);
 
 		//color 0.8f, 0.3f, 0.02f
-		vertices.push_back(0.8f + 0.5f * p1);
+		vertices.push_back(0.3f);
 		vertices.push_back(0.3f + 0.5f * p2);
 		vertices.push_back(0.02f + 0.5f * p3);
 	}
