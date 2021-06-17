@@ -5,6 +5,9 @@ using namespace std;
 Paper::Paper() {
 
 	rows = 64;
+
+	//stuff breaks when columns =/= rows
+	//TODO: Fix that
 	columns = rows;
 	total = (2 * columns + 1) * (rows + 1) / 2;
 }
@@ -50,7 +53,6 @@ void Paper::makeTriangles() {
 			indicesMap.push_back(p1);
 			indicesMap.push_back(p2);
 			indicesMap.push_back(p3);
-			printf("%d %d %d\n", p1, p2, p3);
 
 			p1++;
 		}
@@ -58,7 +60,6 @@ void Paper::makeTriangles() {
 	}
 
 	p1 = total - 1;
-	printf("t %d\n", total);
 	for (int r = 0; r < rows; r++) {
 		for (int i = 0; i < rows - (r+1) % 2; i++) {
 			p2 = p1 - 1;
